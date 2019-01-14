@@ -245,7 +245,7 @@ Quick StartCreate a new p
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
-                    <h3><a href="/2018/09/20/搭建博客/">搭建博客</a></h3>
+                    <h3><a href="/2018/09/20/搭建博客/">ios上h5的输入框被弹起的解决方法</a></h3>
                     <span>
                         <span class="post-meta">
       <time datetime="2018-09-20T08:16:21.000Z" itemprop="datePublished">
@@ -259,9 +259,10 @@ Quick StartCreate a new p
                     <p>
                       
                         
-hahahha 
 
-
+最近接触的项目都是要填很多输入框的需求，而且在微信端显示，然后发现ios设备上是会出现很多兼容问题的
+在解决一个问题的同时可能又会ios的另一个问题，很是头疼，最后终于在同事的帮助下找到了完美的解决办法。
+1 在全局对所有的输入框监听两个事件，聚焦和失去焦点事件：123456789101112document.body.addEventListener(&apos;focusout&apos;, () =&gt; &#123;   
                       
                     </p>
                     

@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>搭建博客 | 淡·航</title>
+  <title>ios上h5的输入框被弹起的解决方法 | 淡·航</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -187,13 +187,18 @@
       </time>
     
 </span>
-                <h1>搭建博客</h1>
+                <h1>ios上h5的输入框被弹起的解决方法</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
       		<blockquote>
-<p>hahahha </p>
 </blockquote>
+<p>最近接触的项目都是要填很多输入框的需求，而且在微信端显示，然后发现ios设备上是会出现很多兼容问题的</p>
+<p>在解决一个问题的同时可能又会ios的另一个问题，很是头疼，最后终于在同事的帮助下找到了完美的解决办法。</p>
+<p>1 在全局对所有的输入框监听两个事件，聚焦和失去焦点事件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">document.body.addEventListener(&apos;focusout&apos;, () =&gt; &#123;</span><br><span class="line">    // 软键盘收起的事件处理</span><br><span class="line">    if (this.$util.isIphone()) &#123;</span><br><span class="line">      this.isPopup = false;</span><br><span class="line">      this.scrollToEvent();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  document.body.addEventListener(&apos;focusin&apos;, () =&gt; &#123;</span><br><span class="line">    if (this.$util.isIphone()) &#123;</span><br><span class="line">      this.isPopup = true;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>isPopup用来标记键盘是否收起，用于后面判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// IOS系统下微信平台收起键盘后控制网页复原位置的事件</span><br><span class="line">    scrollToEvent() &#123;</span><br><span class="line">      let self = this;</span><br><span class="line">      let timer = setTimeout(() =&gt; &#123;</span><br><span class="line">        if (!self.isPopup) &#123;</span><br><span class="line">          window.scrollTo(&#123; left: 0, top: self.offsetTop, behavior: &apos;smooth&apos; &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">      &#125;, 0);</span><br><span class="line">    &#125;,</span><br><span class="line">    scrollAction(e) &#123;</span><br><span class="line">      this.offsetTop = e.target.scrollTop;</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<p>如图的scrollAction事件监控包含表单的scroll事件，只要滚动条有变化就会触发</p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
